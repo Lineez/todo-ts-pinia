@@ -2,7 +2,9 @@ module.exports = {
     css: {
         loaderOptions: {
             sass: {
-                additionalData: `@import "@/assets/scss/default/_mixin.scss";`,
+                additionalData: `
+                    @import "@/assets/scss/default/style.scss";
+                `,
             },
         },
     },

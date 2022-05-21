@@ -5,11 +5,6 @@ import "./registerServiceWorker";
 import components from "@/components/ui";
 import directives from "@/directives/index";
 import router from "@/router/index";
-// global mixin & variables
-import "@/assets/scss/default/style.scss";
-// global fonts
-import "@/assets/fonts/Montserrat/style.css";
-import "@/assets/fonts/Lato/style.css";
 
 const app = createApp(App);
 const pinia = createPinia();
