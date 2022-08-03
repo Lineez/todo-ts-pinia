@@ -1,4 +1,4 @@
-# shaurma2
+# todo-ts-pinia
 
 ## Project setup
 ```
