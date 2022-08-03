@@ -21,8 +21,10 @@ ul,
 li {
     list-style: none;
 }
-hr, fieldset,
-input, button {
+hr,
+fieldset,
+input,
+button {
     border: none;
 }
 option,
@@ -57,7 +59,8 @@ picture {
 img {
     max-width: 100%;
 }
-html, body {
+html,
+body {
     height: 100%;
     width: 100%;
 }

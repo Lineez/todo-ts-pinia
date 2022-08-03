@@ -11,4 +11,8 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+* {
+    font-family: var(--font-family_Montserrat);
+}
+</style>
