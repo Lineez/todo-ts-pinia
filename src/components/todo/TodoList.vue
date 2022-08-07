@@ -11,14 +11,15 @@
 </template>
 
 <script lang="ts">
+import { ITodoItem } from "@/components/todo/interface.todo";
 import TodoItem from "@/components/todo/TodoItem.vue";
-import { defineComponent } from "vue";
+import { defineComponent, PropType } from "vue";
 
 export default defineComponent({
     components: { TodoItem },
     props: {
         todos: {
-            type: Array,
+            type: [] as PropType<ITodoItem[]>,
             required: true,
         },
     },

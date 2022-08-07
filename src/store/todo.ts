@@ -1,35 +1,16 @@
+import { ITodoItem } from "@/components/todo/interface.todo";
 import axios from "axios";
 import { defineStore } from "pinia";
 
-interface TodoItem {
-    userId: number;
-    id: number;
-    title: string;
-    completed: boolean;
-}
-
 export const useStoreTodo = defineStore("todo", {
     state: () => ({
-        todos: [] as TodoItem[],
-        totalPages: NaN,
+        todos: [] as ITodoItem[],
+        totalPages: 2, // hard
         page: 0,
         limit: 10,
         isLoading: false,
     }),
-    getters: {
-        // getPage(): number {
-        //     return this.page;
-        // },
-        // getLimit(): number {
-        //     return this.limit;
-        // },
-        // getTotalPages(): number {
-        //     return this.totalPages;
-        // },
-        // getTodos(): Array<TodoItem> {
-        //     return this.todos;
-        // },
-    },
+    getters: {},
     actions: {
         setPage(value: number) {
             this.page = value;
@@ -40,8 +21,8 @@ export const useStoreTodo = defineStore("todo", {
         setTotalPages(value: number) {
             this.totalPages = value;
         },
-        setTodos(data: Array<TodoItem>) {
-            this.todos.push(...data);
+        setTodos(data: Array<ITodoItem>) {
+            this.todos = data;
         },
         async fetchTodos() {
             try {
@@ -58,9 +39,9 @@ export const useStoreTodo = defineStore("todo", {
                     }
                 );
 
-                this.totalPages = Math.ceil(
-                    Number(response.headers["x-total-count"]) / this.limit
-                );
+                // this.totalPages = Math.ceil(
+                //     Number(response.headers["x-total-count"]) / this.limit
+                // );
 
                 this.todos = [...this.todos, ...response.data];
             } catch (error: any) {
@@ -70,14 +51,14 @@ export const useStoreTodo = defineStore("todo", {
             }
         },
         changeItemComplete(id: number) {
-            this.todos.forEach((item: TodoItem) => {
+            this.todos.forEach((item: ITodoItem) => {
                 if (item.id === id) {
                     item.completed = !item.completed;
                 }
             });
         },
         removeItem(id: number) {
-            this.todos = this.todos.filter((item: TodoItem) => item.id !== id);
+            this.todos = this.todos.filter((item: ITodoItem) => item.id !== id);
         },
     },
 });

@@ -18,13 +18,14 @@
 <script lang="ts">
 import UiButton from "@/components/ui/UiButton.vue";
 import { useStoreTodo } from "@/store/todo";
-import { defineComponent } from "vue";
+import { defineComponent, PropType } from "vue";
+import { ITodoItem } from "@/components/todo/interface.todo";
 
 export default defineComponent({
     components: { UiButton },
     props: {
         item: {
-            type: Object,
+            type: Object as PropType<ITodoItem>,
             required: true,
         },
     },
@@ -35,7 +36,7 @@ export default defineComponent({
         return { changeItemComplete, removeItem };
     },
     methods: {
-        getItemIdWithSign(sign) {
+        getItemIdWithSign(sign: string) {
             return `${this.item.id} ${sign}`;
         },
     },

@@ -1,6 +1,19 @@
 <template>
     <section class="todo">
         <h1 class="todo__header">TODO List created via VUE 3, pinia, ts</h1>
+        <nav class="todo__nav">
+            <ui-input
+                v-model="input"
+                class="todo__input default"
+                placeholder="Enter some text"
+            />
+            <ui-button @click="addNewTodo()" class="todo__button default"
+                >Add</ui-button
+            >
+            <ui-button @click="removeCompleted()" class="todo__button default"
+                >Remove completed</ui-button
+            >
+        </nav>
 
         <todo-list class="todo__list" :todos="todos" />
         <ui-loader
@@ -17,11 +30,17 @@ import { defineComponent, toRefs } from "vue";
 import TodoList from "@/components/todo/TodoList.vue";
 import { useStoreTodo } from "@/store/todo";
 import UiLoader from "@/components/ui/UiLoader.vue";
+import UiButton from "@/components/ui/UiButton.vue";
+import { ITodoItem } from "@/components/todo/interface.todo";
+import { mapActions } from "pinia";
+import UiInput from "@/components/ui/UiInput.vue";
 
 export default defineComponent({
-    components: { TodoList, UiLoader },
+    components: { TodoList, UiLoader, UiButton, UiInput },
     data() {
-        return {};
+        return {
+            input: "some todo",
+        };
     },
     setup() {
         const todoStore = useStoreTodo();
@@ -30,13 +49,27 @@ export default defineComponent({
 
         return { fetchTodos, todos, totalPages, page, isLoading };
     },
-    // methods: {
-    //     loading() {
-    //         setTimeout(() => {
-    //             this.fetchTodos();
-    //         }, 0);
-    //     },
-    // },
+    methods: {
+        ...mapActions(useStoreTodo, ["setTodos"]),
+        // можно вынести в стор
+        removeCompleted() {
+            const todos = this.todos.filter(
+                (todo: ITodoItem) => !todo.completed
+            );
+            this.setTodos(todos);
+        },
+        // можно вынести в стор
+        addNewTodo() {
+            const newTodo = {
+                userId: 1, // hard
+                id: Date.now(),
+                title: this.input,
+                completed: false,
+            };
+            this.setTodos([...this.todos, newTodo]);
+            this.input = "";
+        },
+    },
 });
 </script>
 
@@ -50,6 +83,21 @@ export default defineComponent({
         font-size: 2rem;
         text-align: center;
         color: var(--color-green);
+    }
+    // .todo__nav
+    &__nav {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        margin-bottom: 40px;
+        column-gap: 20px;
+    }
+    // .todo__input
+    &__input {
+        width: 100%;
+    }
+    // .todo__button
+    &__button {
     }
     // .todo__list
     &__list {
