@@ -19,7 +19,7 @@ export default defineComponent({
     components: { TodoItem },
     props: {
         todos: {
-            type: [] as PropType<ITodoItem[]>,
+            type: Array as PropType<ITodoItem[]>,
             required: true,
         },
     },
