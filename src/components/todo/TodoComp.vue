@@ -1,19 +1,26 @@
 <template>
     <section class="todo">
         <h1 class="todo__header">TODO List created via VUE 3, pinia, ts</h1>
-        <nav class="todo__nav">
+        <!-- some component maybe -->
+        <form @submit.prevent class="todo__nav">
             <ui-input
                 v-model="input"
                 class="todo__input default"
                 placeholder="Enter some text"
             />
-            <ui-button @click="addNewTodo()" class="todo__button default"
+            <ui-button
+                type="submit"
+                @click="addNewTodo()"
+                class="todo__button default"
                 >Add</ui-button
             >
-            <ui-button @click="removeCompleted()" class="todo__button default"
+            <ui-button
+                type="button"
+                @click="removeCompleted()"
+                class="todo__button default"
                 >Remove completed</ui-button
             >
-        </nav>
+        </form>
 
         <todo-list class="todo__list" :todos="todos" />
         <ui-loader
