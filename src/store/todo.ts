@@ -1,5 +1,5 @@
+import { ApiTodo } from "@/api/api-todo";
 import { ITodoItem } from "@/components/todo/interface.todo";
-import axios from "axios";
 import { defineStore } from "pinia";
 
 export const useStoreTodo = defineStore("todo", {
@@ -25,30 +25,22 @@ export const useStoreTodo = defineStore("todo", {
             this.todos = data;
         },
         async fetchTodos() {
-            try {
-                this.isLoading = true;
-                this.page += 1;
+            this.isLoading = true;
+            this.page += 1;
 
-                const response = await axios.get(
-                    "https://jsonplaceholder.typicode.com/todos",
-                    {
-                        params: {
-                            _limit: this.limit,
-                            _page: this.page,
-                        },
-                    }
-                );
+            const response = await ApiTodo.getAll({
+                params: {
+                    _limit: this.limit,
+                    _page: this.page,
+                },
+            });
 
-                // this.totalPages = Math.ceil(
-                //     Number(response.headers["x-total-count"]) / this.limit
-                // );
+            // this.totalPages = Math.ceil(
+            //     Number(response.headers["x-total-count"]) / this.limit
+            // );
 
-                this.todos = [...this.todos, ...response.data];
-            } catch (error: any) {
-                throw new Error(error.message);
-            } finally {
-                this.isLoading = false;
-            }
+            this.todos = [...this.todos, ...response.data];
+            this.isLoading = false;
         },
         changeItemComplete(id: number) {
             this.todos.forEach((item: ITodoItem) => {
