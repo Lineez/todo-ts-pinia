@@ -5,6 +5,15 @@ type ID = number | string;
 export class API_Constructor {
     constructor(private url: URL) {}
 
+    public create(data: any, options?: AxiosRequestConfig) {
+        return this.fetch({
+            ...options,
+            data,
+            method: "post",
+            url: this.url.href,
+        });
+    }
+
     public getAll(options?: AxiosRequestConfig) {
         return this.fetch({
             ...options,
@@ -21,9 +30,10 @@ export class API_Constructor {
         });
     }
 
-    public update(id: ID, options?: AxiosRequestConfig) {
+    public update(id: ID, data: any, options?: AxiosRequestConfig) {
         return this.fetch({
             ...options,
+            data,
             method: "put",
             url: this.url.href + "/" + id,
         });
