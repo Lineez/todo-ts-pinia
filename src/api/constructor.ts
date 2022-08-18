@@ -1,11 +1,10 @@
 import axios, { AxiosRequestConfig } from "axios";
 
 type ID = number | string;
-
-export class API_Constructor {
+export class API_Constructor<T> {
     constructor(private url: URL) {}
 
-    public create(data: any, options?: AxiosRequestConfig) {
+    public create(data: T, options?: AxiosRequestConfig) {
         return this.fetch({
             ...options,
             data,
@@ -30,7 +29,7 @@ export class API_Constructor {
         });
     }
 
-    public update(id: ID, data: any, options?: AxiosRequestConfig) {
+    public update(id: ID, data: T, options?: AxiosRequestConfig) {
         return this.fetch({
             ...options,
             data,
